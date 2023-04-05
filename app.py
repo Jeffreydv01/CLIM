@@ -4,9 +4,7 @@ import logging
 import sys
 from flask import Flask, request, jsonify
 from flask_restful import reqparse, abort, Api, Resource, request
-from pymongo import MongoClient
 from dns_zone import DnsZone
-from mongodb_functions import *
 
 app = Flask(__name__)
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
