@@ -106,4 +106,4 @@ api.add_resource(UserDelete, '/client/delete')
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='192.168.37.131')
+    app.run(debug=True, host='0.0.0.0')
