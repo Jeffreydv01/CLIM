@@ -15,7 +15,7 @@ api = Api(app)
 DEBUG = True
 
 zone = 'clim.nl'                        # domein naam
-nameserver = '192.168.37.130'           # IP van de DNS server
+nameserver = '44.214.171.38'           # IP van de DNS server
 dns_zone = DnsZone(zone, nameserver)    # hierin geef je de benodigde gegevens voor de DnsZone module
 
 parser = reqparse.RequestParser()
