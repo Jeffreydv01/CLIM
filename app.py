@@ -37,7 +37,6 @@ class NewUser(Resource):
         #print(fqdn)
         #print(ipv4)     
         result, error = dns_zone.add_address(fqdn, ipv4)
-            # dns_zone.add_address(fqdn, ipv4) 
 
         if error:
             print(f"Error: {result}")
@@ -47,24 +46,9 @@ class NewUser(Resource):
         return {'status': 'ok'}
         
         
-    
-
 
 class UserEdit(Resource):
     
-    # def delete(self, user_mail):    # verwijdert de A record
-        
-    #     data = request.get_json()
-    #     fqdn = data.get('fqdn')
-
-    #     dns_zone.clear_address(fqdn)
-        
-    #     return {'status': 'ok'}
-    
-
-
-    # Voeg een coupon toe
-    # curl http://192.168.190.100:5000/client/name/jan3 -d "code=3333333" -d "value=100" -X PUT
     def put(self, user_mail):
         args = parser.parse_args()
         
@@ -79,10 +63,7 @@ class UserEdit(Resource):
 
     # Vraag informatie op over de user
     # curl http://192.168.190.100:5000/client/name/jan
-    def get(self, user_mail):
-        # <x=mijnfunctie(mijnargumenten)>
-        # return x: een stukje json met daarin informatie over de user, dus niet onderstaande regel
-        return {'status': 'ok'}
+
     
 class UserDelete(Resource):
     
@@ -94,6 +75,33 @@ class UserDelete(Resource):
         dns_zone.clear_address(fqdn)
             
         return {'status': 'ok'}
+    
+    
+class UserRequest(Resource):
+
+    def get(self):
+        # data = request.get_json    
+        # fqdn = data.get('fqdn')     # verwerkt de JSON in een "normale" format
+        # print(fqdn)
+        # # ipv4 = data.get('ipv4')
+
+        # # result, error = dns_zone.check_address(fqdn)
+        # result = dns_zone.check_address(fqdn)
+
+        # # if error:
+        # #     print(f"Error: {result}")
+        # # else:
+        # #     print(f"Success: {result}")
+            
+        # return {'status': 'ok'}
+
+
+        data = request.get_json()
+        fqdn = data.get('fqdn')
+        result = dns_zone.check_address(fqdn)
+        
+        return jsonify(result)
+
 ##
 ## Elke url moet je hieronder apart definieren, dus /client/new  of /client/name
 ## Als een deel van de url een variabele is dan tussen vishaken, bv <user_name>
@@ -101,6 +109,7 @@ class UserDelete(Resource):
 api.add_resource(NewUser, '/client/new')      # toont op welke URL er geluisterd wordt naar API requests  
 api.add_resource(UserEdit, '/client/name/<user_mail>')
 api.add_resource(UserDelete, '/client/delete')
+api.add_resource(UserRequest, '/client/request')
 
 
 if __name__ == '__main__':
